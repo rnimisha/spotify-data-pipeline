@@ -1,34 +1,68 @@
+import datetime
+import os
+
 import pandas as pd
 
 from scripts.utils.generate_spotify_client import generate_spotify_client
 
 
+def extract_single_track_data(track_item):
+    """
+    Extract relevant data only for single track.
+    """
+    track = track_item["track"]
+    track_data_dict = {
+        "song_title": track.get("name", "N/A"),
+        "artist_name": track["album"]["artists"][0].get("name", "N/A"),
+        "played_at": track_item.get("played_at", "N/A"),
+        "song_duration_ms": track.get("duration_ms", "N/A"),
+    }
+    return track_data_dict
+
+
 def extract_spotify_recently_played():
-    spotify_client = generate_spotify_client()
+    """
+    Fetch recently played songs from spotify playlist.
+    Extract relevat track information.
+    """
+    try:
+        spotify_client = generate_spotify_client()
 
-    recently_played = spotify_client.current_user_recently_played(limit=10)
+        today = datetime.datetime.now()
+        yesterday = today - datetime.timedelta(days=1)
+        yesterday_unix_timestamp_ms = int(yesterday.timestamp()) * 1000
 
-    print(len(recently_played["items"]))
+        # extract yestarday data only
+        recently_played = spotify_client.current_user_recently_played(
+            limit=50, after=yesterday_unix_timestamp_ms
+        )
 
-    played_track_data = []
+        played_track_data = [
+            extract_single_track_data(item) for item in recently_played["items"]
+        ]
 
-    for item in recently_played["items"]:
-        track = item["track"]
+        df_columns = ["song_title", "artist_name", "played_at", "song_duration_ms"]
+        played_track_df = pd.DataFrame(played_track_data, columns=df_columns)
 
-        track_data_dict = {
-            "song_title": track.get("name", "N/A"),
-            "artist_name": track["album"]["artists"][0].get("name", "N/A"),
-            "played_at": item.get("played_at", "N/A"),
-            "song_duration_ms": track.get("duration_ms", "N/A"),
-        }
-        played_track_data.append(track_data_dict)
+        return played_track_df
 
-    df_columns = ["song_title", "artist_name", "played_at", "song_duration_ms"]
-    played_track_df = pd.DataFrame(played_track_data, columns=df_columns)
+    except Exception as e:
+        print("Error during extraction of data from spoify")
+        return pd.DataFrame()
 
-    csv_filename = "staging_played_tracks.csv"
-    played_track_df.to_csv(csv_filename, index=False)
 
-    print(f"DataFrame saved to {csv_filename}")
+def save_to_staging_csv(data_frame):
+    """
+    Store extracted data to staging layer as csv file.
+    """
+    try:
+        csv_filename = "staging_played_tracks.csv"
+        csv_path = os.path.join("data/staging", csv_filename)
 
-    return played_track_df
+        if os.path.exists(csv_path):
+            os.remove(csv_path)
+
+        data_frame.to_csv(csv_path, index=False)
+
+    except Exception as e:
+        print("Error saving data to staging layer")
