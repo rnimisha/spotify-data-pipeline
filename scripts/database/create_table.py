@@ -8,15 +8,25 @@ from .schema import (
 
 
 def create_star_schema_table():
-    conn = connect_to_database()
-    cursor = conn.cursor()
+    conn = None
+    cursor = None
+    try:
+        conn = connect_to_database()
+        cursor = conn.cursor()
 
-    cursor.execute(get_dim_song_create_query())
-    cursor.execute(get_dim_artist_create_query())
-    cursor.execute(get_dim_date_create_query())
-    cursor.execute(get_fact_song_stream_create_query())
+        cursor.execute(get_dim_song_create_query())
+        cursor.execute(get_dim_artist_create_query())
+        cursor.execute(get_dim_date_create_query())
+        cursor.execute(get_fact_song_stream_create_query())
 
-    conn.commit()
+        conn.commit()
 
-    cursor.close()
-    conn.close()
+    except Exception as e:
+        print("Error creating tables", e)
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if conn is not None:
+            conn.close()
