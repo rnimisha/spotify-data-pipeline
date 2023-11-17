@@ -9,6 +9,12 @@ def check_empty_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Check if data frame is empty.
     If empty then stop the pipeline
+
+    Args:
+        df (pd.DataFrame): staging layer dataframe
+
+    Returns:
+        pd.DataFrame: same dataframe
     """
     if df.empty:
         print("No songs streamed for yesterday. Stoping the process...")
@@ -17,6 +23,15 @@ def check_empty_data(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def check_missing_value(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Check for missing and null value in spotify data.
+
+    Args:
+        df (pd.DataFrame): staging layer dataframe
+
+    Returns:
+        pd.DataFrame: dataframe without null value
+    """
     # if whole row is empty null
     df = df.dropna(how="all")
 
@@ -31,6 +46,15 @@ def check_missing_value(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def transform_date(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Tranforms date to datetime format
+
+    Args:
+        df (pd.DataFrame): staging layer data
+
+    Returns:
+        pd.DataFrame: dataframe with hour, year, month, week extracted
+    """
     df["played_at"] = pd.to_datetime(df["played_at"])
     df["year"] = df["played_at"].dt.year
     df["month"] = df["played_at"].dt.month
@@ -41,11 +65,20 @@ def transform_date(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def transform_artist(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Tranform artist detail in spotify data
+
+    Args:
+        df (pd.DataFrame): staging layer dataframe
+
+    Returns:
+        pd.DataFrame: dataframe with trailing while space removed
+    """
     df["artist_name"] = df["artist_name"].str.lower().str.strip()
     return df
 
 
-def check_duration_format(duration_value):
+def check_duration_format(duration_value) -> int:
     try:
         return int(duration_value)
     except ValueError as error:
@@ -53,18 +86,41 @@ def check_duration_format(duration_value):
 
 
 def transform_song(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Tranform song detail in spotify data
+
+    Args:
+        df (pd.DataFrame): staging layer dataframe
+
+    Returns:
+        pd.DataFrame: dataframe with valid duration only
+    """
     df["song_title"] = df["song_title"].str.lower().str.strip()
     df["song_duration_ms"] = df["song_duration_ms"].apply(check_duration_format)
     return df
 
 
 def save_df_to_processed_csv(data_frame):
+    """
+    Store extracted data to staging layer as csv file.
+    """
     csv_filename = "processed_played_tracks.csv"
     csv_path = os.path.join("data/processed", csv_filename)
     save_df_as_csv(data_frame, csv_path)
 
 
 def transform(filename: str) -> pd.DataFrame:
+    """
+    Reads data from staging layer.
+    Cleans and transforms data from the layer.
+    Stores data in processed layer.
+
+    Args:
+        filename (str): file name of staging layer csv
+
+    Returns:
+        pd.DataFrame: processed dataframe
+    """
     try:
         # read data from staging layer
         csv_path = os.path.join("data/staging", filename)
