@@ -4,6 +4,7 @@ import os
 import pandas as pd
 
 from scripts.utils.generate_spotify_client import generate_spotify_client
+from scripts.utils.save_df_csv import save_df_as_csv
 
 
 def extract_single_track_data(track_item):
@@ -55,14 +56,6 @@ def save_to_staging_csv(data_frame):
     """
     Store extracted data to staging layer as csv file.
     """
-    try:
-        csv_filename = "staging_played_tracks.csv"
-        csv_path = os.path.join("data/staging", csv_filename)
-
-        if os.path.exists(csv_path):
-            os.remove(csv_path)
-
-        data_frame.to_csv(csv_path, index=False)
-
-    except Exception as e:
-        print("Error saving data to staging layer")
+    csv_filename = "staging_played_tracks.csv"
+    csv_path = os.path.join("data/staging", csv_filename)
+    save_df_as_csv(data_frame, csv_path)
