@@ -61,6 +61,9 @@ def transform_date(df: pd.DataFrame) -> pd.DataFrame:
     df["hour_of_day"] = df["played_at"].dt.hour
     df["day_of_week"] = df["played_at"].dt.day_name()
 
+    # remove timestamp column
+    df = df.drop("played_at", axis=1)
+
     return df
 
 
