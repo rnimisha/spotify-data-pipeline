@@ -1,11 +1,51 @@
-song_title,artist_name,song_duration_ms,year,month,hour_of_day,day_of_week
-night and day,jung seung hwan,181373,2023,11,20,Tuesday
-tomorrow,rp,274148,2023,11,20,Tuesday
-night and day,jung seung hwan,181373,2023,11,20,Tuesday
-is it over now? (taylor's version) (from the vault),taylor swift,229477,2023,11,20,Tuesday
-about loneliness,aalia,233317,2023,11,20,Tuesday
-out of the woods (taylor's version),taylor swift,235800,2023,11,20,Tuesday
-tomorrow,rp,274148,2023,11,19,Tuesday
-shining,김한겸,210919,2023,11,19,Tuesday
-my song,5moon,246871,2023,11,19,Tuesday
-night and day,jung seung hwan,181373,2023,11,19,Tuesday
+song_title,artist_name,song_duration_ms,artist_natural_key,song_natural_key,year,month,hour_of_day,day_of_week
+the grudge,olivia rodrigo,189386,1McMsnEElThX1knmY4oliG,3Nl5OkkmS5DaBZvuYofpAt,2023,11,17,Sunday
+yawn,seventeen,258213,7nqOGRxlXj7N2JYbgNEjYH,1qzvzPfqzpNQ01ZBOEkVlf,2023,11,17,Sunday
+now that we don't talk (taylor's version) (from the vault),taylor swift,146436,06HL4z0CvFAxyc27GXpf02,5QUIK7ZtziW8kGWo8RqopF,2023,11,17,Sunday
+shining,김한겸,210919,01qikWSwB9BtwXkxXyBcWJ,3paqBku7R2cpFcFgEWPjjV,2023,11,17,Sunday
+tomorrow,rp,274148,7c9BsV6rPkZhQpGXBOeZXx,6qsC0eTGIDIjPduhKTtCM4,2023,11,17,Sunday
+butterfly,young k,247906,34HmvZztvxqAo2mBSAieRe,7kAs2Dw6ymVkriLrbjtGDD,2023,11,17,Sunday
+is it over now? (taylor's version) (from the vault),taylor swift,229477,06HL4z0CvFAxyc27GXpf02,6IG3sQ8s9nfk6TUlVzRhbN,2023,11,17,Sunday
+knock knock (who's there?),red velvet,201320,1z4g3DjTBBZKhvAroFlhOM,5nTemr4PG8L9jQoqxsZu6w,2023,11,17,Sunday
+'cause you have to,lany,250595,49tQo2QULno7gxHutgccqF,1GZnoLPpR9p2CwclsZnOXD,2023,11,17,Sunday
+night and day,jung seung hwan,181373,7l8rOFwZFQ3G0sgZ7gjGng,37x2x6UQfUcvbM8NVHRngO,2023,11,17,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,17,Sunday
+about loneliness,aalia,233317,5RLNUxUo4XUoT6YrkVvetS,5LetmN5BQqMazBjdgDrhcf,2023,11,17,Sunday
+somebody,d.o.,158733,2CQZr2RPZmrcvDnaod1ldC,2sZEjTi51vnlwpmIAKdwgX,2023,11,17,Sunday
+loveless night,kwon soon il,257986,1e7AZDBG64lv62iUtQ6nTf,3D51P7X8MO6G6YaynJsprB,2023,11,17,Sunday
+loveless night,kwon soon il,257986,1e7AZDBG64lv62iUtQ6nTf,3D51P7X8MO6G6YaynJsprB,2023,11,17,Sunday
+loveless night,kwon soon il,257986,1e7AZDBG64lv62iUtQ6nTf,3D51P7X8MO6G6YaynJsprB,2023,11,17,Sunday
+'cause you have to,lany,250595,49tQo2QULno7gxHutgccqF,1GZnoLPpR9p2CwclsZnOXD,2023,11,17,Sunday
+now that we don't talk (taylor's version) (from the vault),taylor swift,146436,06HL4z0CvFAxyc27GXpf02,5QUIK7ZtziW8kGWo8RqopF,2023,11,17,Sunday
+night and day,jung seung hwan,181373,7l8rOFwZFQ3G0sgZ7gjGng,37x2x6UQfUcvbM8NVHRngO,2023,11,16,Sunday
+higher,ju-ne,224213,5tCgO9okyHkBJJxxAYv9uX,3AO9Av55YyTGwCQM4ckIfm,2023,11,16,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,16,Sunday
+night and day,jung seung hwan,181373,7l8rOFwZFQ3G0sgZ7gjGng,37x2x6UQfUcvbM8NVHRngO,2023,11,6,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,2,Sunday
+loveless night,kwon soon il,257986,1e7AZDBG64lv62iUtQ6nTf,3D51P7X8MO6G6YaynJsprB,2023,11,2,Sunday
+shining,김한겸,210919,01qikWSwB9BtwXkxXyBcWJ,3paqBku7R2cpFcFgEWPjjV,2023,11,2,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,2,Sunday
+night and day,jung seung hwan,181373,7l8rOFwZFQ3G0sgZ7gjGng,37x2x6UQfUcvbM8NVHRngO,2023,11,2,Sunday
+you’re precious,standing egg,197538,6a3Mfrn2XBR1DfPg1QGa1d,0grAbqXDOJDerhzeYB4wy3,2023,11,2,Sunday
+chill kill,red velvet,214800,1z4g3DjTBBZKhvAroFlhOM,68gQG2HpRMxIRom4pCugMq,2023,11,2,Sunday
+now that we don't talk (taylor's version) (from the vault),taylor swift,146436,06HL4z0CvFAxyc27GXpf02,5QUIK7ZtziW8kGWo8RqopF,2023,11,2,Sunday
+butterfly,young k,247906,34HmvZztvxqAo2mBSAieRe,7kAs2Dw6ymVkriLrbjtGDD,2023,11,1,Sunday
+loveless night,kwon soon il,257986,1e7AZDBG64lv62iUtQ6nTf,3D51P7X8MO6G6YaynJsprB,2023,11,1,Sunday
+higher,ju-ne,224213,5tCgO9okyHkBJJxxAYv9uX,3AO9Av55YyTGwCQM4ckIfm,2023,11,1,Sunday
+'cause you have to,lany,250595,49tQo2QULno7gxHutgccqF,1GZnoLPpR9p2CwclsZnOXD,2023,11,1,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,1,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,1,Sunday
+yawn,seventeen,258213,7nqOGRxlXj7N2JYbgNEjYH,1qzvzPfqzpNQ01ZBOEkVlf,2023,11,1,Sunday
+chill kill,red velvet,214800,1z4g3DjTBBZKhvAroFlhOM,68gQG2HpRMxIRom4pCugMq,2023,11,1,Sunday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,1,Sunday
+a song for you,joonil jung,234552,2dhnFfsPxve8lzhwfXVFpS,2rZ9DFCQ1BvqGhEpwZY4xU,2023,11,1,Sunday
+rest,lee mujin,220666,4Xj0peBt3EZHbdF20JmdWC,6a2cutO8pmtSA9atoH041j,2023,11,1,Sunday
+tomorrow,rp,274148,7c9BsV6rPkZhQpGXBOeZXx,6qsC0eTGIDIjPduhKTtCM4,2023,11,19,Saturday
+someday,park eunbin,232280,1ANiPe6RWnAKnfwORN5vxP,3uZxAOpw6ZjMT36GrxqDoK,2023,11,19,Saturday
+is it over now? (taylor's version) (from the vault),taylor swift,229477,06HL4z0CvFAxyc27GXpf02,6IG3sQ8s9nfk6TUlVzRhbN,2023,11,19,Saturday
+knock knock (who's there?),red velvet,201320,1z4g3DjTBBZKhvAroFlhOM,5nTemr4PG8L9jQoqxsZu6w,2023,11,18,Saturday
+icarus,dino (seventeen),211053,5YaeXxzvqGNBCguELlKo6G,6F3JheiZtQnzGfjbAocreQ,2023,11,18,Saturday
+somebody,d.o.,158733,2CQZr2RPZmrcvDnaod1ldC,2sZEjTi51vnlwpmIAKdwgX,2023,11,18,Saturday
+about loneliness,aalia,233317,5RLNUxUo4XUoT6YrkVvetS,5LetmN5BQqMazBjdgDrhcf,2023,11,18,Saturday
+wherever,eight'o,249145,0ejqkHvKFByReUaH2QTfRb,5IRFZZ9cUCdtV7YMSxPhRp,2023,11,18,Saturday
+tomorrow,rp,274148,7c9BsV6rPkZhQpGXBOeZXx,6qsC0eTGIDIjPduhKTtCM4,2023,11,18,Saturday
