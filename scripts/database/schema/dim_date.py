@@ -5,7 +5,8 @@ def get_dim_date_create_query():
             year INTEGER,
             month INTEGER,
             hour_of_day INTEGER,
-            day_of_week VARCHAR(20)
+            day_of_week VARCHAR(20),
+            CONSTRAINT unique_date_time UNIQUE (year, month, hour_of_day, day_of_week)
         )
     """
     return query
