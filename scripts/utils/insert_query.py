@@ -1,8 +1,10 @@
 def insert_dim_artist(cursor, row):
-    artist_name = row["artist_name"].lower()
+    artist_natural_key = row["artist_natural_key"]
+    artist_name = row["artist_name"]
 
     cursor.execute(
-        "SELECT artist_id FROM dim_artist WHERE LOWER(artist_name) = %s", (artist_name,)
+        "SELECT artist_id FROM dim_artist WHERE artist_natural_key = %s",
+        (artist_natural_key,),
     )
     artist_id = cursor.fetchone()
 
@@ -11,7 +13,10 @@ def insert_dim_artist(cursor, row):
         return artist_id[0]
     else:
         cursor.execute(
-            "INSERT INTO dim_artist (artist_name) VALUES (%s) RETURNING artist_id",
-            (artist_name,),
+            "INSERT INTO dim_artist (artist_name, artist_natural_key) VALUES (%s, %s) RETURNING artist_id",
+            (
+                artist_name,
+                artist_natural_key,
+            ),
         )
         return cursor.fetchone()[0]
