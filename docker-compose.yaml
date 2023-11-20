@@ -23,5 +23,44 @@ services:
       - "5050:5050"
     depends_on:
       - postgresdb
+
+  airflow-webserver:
+    image: apache/airflow:2.7.3
+    command: webserver
+    environment:
+      AIRFLOW_EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresdb/${AIRFLOW_DB_NAME}
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - postgresdb
+    volumes:
+      - ./airflow:/opt/airflow
+
+  airflow-init:
+    image: apache/airflow:2.7.3
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        if ! airflow users check -e ${AIRFLOW_ADMIN_EMAIL}; then
+          airflow users create --role Admin --username ${AIRFLOW_ADMIN_USER} --password ${AIRFLOW_ADMIN_PASSWORD} --firstname ${AIRFLOW_ADMIN_FIRSTNAME} --lastname ${AIRFLOW_ADMIN_LASTNAME} --email ${AIRFLOW_ADMIN_EMAIL}
+        else
+          echo "Admin user already exists. Skipping user creation."
+        fi
+        # Add any other initialization commands you need
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresdb/${AIRFLOW_DB_NAME}
+      AIRFLOW_ADMIN_USER: ${AIRFLOW_ADMIN_USER}
+      AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD}
+      AIRFLOW_ADMIN_EMAIL: ${AIRFLOW_ADMIN_EMAIL}
+      AIRFLOW_UID: ${AIRFLOW_UID}
+    volumes:
+      - ./airflow:/opt/airflow
+    restart: "no"
+
 volumes:
   spotify_data:
