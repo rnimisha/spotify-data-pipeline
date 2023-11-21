@@ -24,6 +24,19 @@ services:
     depends_on:
       - postgresdb
 
+  airflow-scheduler:
+    image: apache/airflow:2.7.3
+    command: scheduler
+    environment:
+      AIRFLOW_EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresdb/${AIRFLOW_DB_NAME}
+    restart: always
+    depends_on:
+      - postgresdb
+      - airflow-init
+    volumes:
+      - ./airflow:/opt/airflow
+
   airflow-webserver:
     image: apache/airflow:2.7.3
     command: webserver
@@ -35,6 +48,7 @@ services:
     restart: always
     depends_on:
       - postgresdb
+      - airflow-init
     volumes:
       - ./airflow:/opt/airflow
 
