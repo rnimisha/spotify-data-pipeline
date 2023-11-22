@@ -1,6 +1,6 @@
 import psycopg2
 
-from config.config import app_config
+from config.appconfig import app_config
 
 
 def connect_to_database():
