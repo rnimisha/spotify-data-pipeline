@@ -35,6 +35,8 @@ warnings.txt
 # C extensions
 *.so
 
+.DS_STORE
+
 # Distribution / packaging
 .Python
 build/
