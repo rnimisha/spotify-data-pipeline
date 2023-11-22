@@ -25,7 +25,9 @@ services:
       - postgresdb
 
   airflow-scheduler:
-    image: apache/airflow:2.7.3
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: scheduler
     environment:
       AIRFLOW_EXECUTOR: LocalExecutor
@@ -36,9 +38,15 @@ services:
       - airflow-init
     volumes:
       - ./airflow:/opt/airflow
+      - ./scripts:/opt/scripts
+      - ./data:/opt/data
+      - ./config:/opt/config
+      - ./.spotify_cache:/opt/.spotify_cache
 
   airflow-webserver:
-    image: apache/airflow:2.7.3
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: webserver
     environment:
       AIRFLOW_EXECUTOR: LocalExecutor
@@ -51,9 +59,15 @@ services:
       - airflow-init
     volumes:
       - ./airflow:/opt/airflow
+      - ./scripts:/opt/scripts
+      - ./data:/opt/data
+      - ./config:/opt/config
+      - ./.spotify_cache:/opt/.spotify_cache
 
   airflow-init:
-    image: apache/airflow:2.7.3
+    build:
+      context: .
+      dockerfile: Dockerfile
     entrypoint: /bin/bash
     command:
       - -c
@@ -74,6 +88,10 @@ services:
       AIRFLOW_UID: ${AIRFLOW_UID}
     volumes:
       - ./airflow:/opt/airflow
+      - ./scripts:/opt/scripts
+      - ./data:/opt/data
+      - ./config:/opt/config
+      - ./.spotify_cache:/opt/.spotify_cache
     restart: "no"
 
 volumes:
