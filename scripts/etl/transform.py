@@ -1,7 +1,6 @@
-import os
-
 import pandas as pd
 
+from airflow.exceptions import AirflowException
 from scripts.utils.save_df_csv import save_df_as_csv
 
 
@@ -17,8 +16,10 @@ def check_empty_data(df: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: same dataframe
     """
     if df.empty:
-        print("No songs streamed for yesterday. Stoping the process...")
-        exit()
+        raise AirflowException(
+            "No songs streamed for yesterday. Stoping the process..."
+        )
+
     return df
 
 
@@ -85,7 +86,7 @@ def check_duration_format(duration_value) -> int:
     try:
         return int(duration_value)
     except ValueError as error:
-        print("Not a valid number")
+        raise AirflowException("Duration of song is not a valid number")
 
 
 def transform_song(df: pd.DataFrame) -> pd.DataFrame:
@@ -142,9 +143,9 @@ def transform(filename: str) -> pd.DataFrame:
         return df
 
     except FileNotFoundError:
-        print("Staging file not found")
-        return pd.DataFrame()
+        raise AirflowException("Staging file not found to transform")
 
     except Exception as e:
-        print("Unexpected error encountered while transforming data: ", e)
-        return pd.DataFrame()
+        raise AirflowException(
+            "Unexpected error encountered while transforming data: ", e
+        )

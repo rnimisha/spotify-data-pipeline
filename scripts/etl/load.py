@@ -1,12 +1,11 @@
-import os
 import sys
 
 sys.path.append("/opt/scripts")
 
-
 import pandas as pd
 from psycopg2.extensions import connection
 
+from airflow.exceptions import AirflowException
 from scripts.database.connection import connect_to_database
 from scripts.utils.insert_query import (
     insert_dim_artist,
@@ -23,7 +22,7 @@ def load_processed_data(filename: str):
         return df
 
     except FileNotFoundError:
-        print("File to load data not found")
+        raise AirflowException("Processed data file not found.")
 
 
 def load_to_star_schema(df: pd.DataFrame, conn: connection):
@@ -37,7 +36,7 @@ def load_to_star_schema(df: pd.DataFrame, conn: connection):
             insert_fact_song_stream(song_id, artist_id, date_id, cursor, row)
 
     except Exception as e:
-        print("Unexpected error when inserting to star schema: ", e)
+        raise AirflowException("Star schema load error: ", e)
 
 
 def load():
@@ -51,4 +50,4 @@ def load():
         conn.close()
 
     except Exception as e:
-        print("Unexpected error when loading to star schema: ", e)
+        raise AirflowException("Loading error: ", e)

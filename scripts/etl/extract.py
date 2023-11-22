@@ -58,7 +58,7 @@ def extract_spotify_recently_played() -> pd.DataFrame:
         return played_track_df
 
     except Exception as e:
-        raise AirflowException("Error during extraction of data from spoify")
+        raise AirflowException("Error during extraction of data from spoify", e)
 
 
 def save_to_staging_csv(df: pd.DataFrame):
