@@ -108,7 +108,7 @@ def save_df_to_processed_csv(data_frame):
     Store extracted data to staging layer as csv file.
     """
     csv_filename = "processed_played_tracks.csv"
-    csv_path = os.path.join("data/processed", csv_filename)
+    csv_path = f"/opt/data/processed/{csv_filename}"
     save_df_as_csv(data_frame, csv_path)
 
 
@@ -126,7 +126,7 @@ def transform(filename: str) -> pd.DataFrame:
     """
     try:
         # read data from staging layer
-        csv_path = os.path.join("data/staging", filename)
+        csv_path = f"/opt/data/staging/staging_played_tracks.csv"
         df = pd.read_csv(csv_path)
 
         # apply transformations

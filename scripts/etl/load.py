@@ -1,4 +1,8 @@
 import os
+import sys
+
+sys.path.append("/opt/scripts")
+
 
 import pandas as pd
 from psycopg2.extensions import connection
@@ -14,7 +18,7 @@ from scripts.utils.insert_query import (
 
 def load_processed_data(filename: str):
     try:
-        csv_path = os.path.join("data/processed", filename)
+        csv_path = f"/opt/data/processed/{filename}"
         df = pd.read_csv(csv_path)
         return df
 
@@ -43,7 +47,7 @@ def load():
 
         load_to_star_schema(df, conn)
 
-        # conn.commit()
+        conn.commit()
         conn.close()
 
     except Exception as e:

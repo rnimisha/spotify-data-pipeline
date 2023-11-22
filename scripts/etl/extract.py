@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 
+from airflow.exceptions import AirflowException
 from scripts.utils.generate_spotify_client import generate_spotify_client
 from scripts.utils.save_df_csv import save_df_as_csv
 
@@ -57,8 +58,7 @@ def extract_spotify_recently_played() -> pd.DataFrame:
         return played_track_df
 
     except Exception as e:
-        print("Error during extraction of data from spoify")
-        return pd.DataFrame()
+        raise AirflowException("Error during extraction of data from spoify")
 
 
 def save_to_staging_csv(df: pd.DataFrame):
@@ -66,13 +66,15 @@ def save_to_staging_csv(df: pd.DataFrame):
     Store extracted data to staging layer as csv file.
     """
     csv_filename = "staging_played_tracks.csv"
-    csv_path = os.path.join("data/staging", csv_filename)
+    csv_path = f"/opt/data/staging/{csv_filename}"
     save_df_as_csv(df, csv_path)
 
 
 def extract():
     try:
+        print("................ Extracting................")
         df = extract_spotify_recently_played()
         save_to_staging_csv(df)
+        print("................ Extracted................")
     except Exception as e:
-        print(e)
+        raise AirflowException("Extract error: ", e)
