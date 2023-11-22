@@ -4,6 +4,8 @@ from config.settings import (
     DB_PASSWORD,
     DB_PORT,
     DB_USER,
+    MY_SPOTIFY_PASSWORD,
+    MY_SPOTIFY_USERNAME,
     SPOTIFY_ACCESS_TOKEN,
     SPOTIFY_AUTHORIZATION_CODE,
     SPOTIFY_CLIENT_ID,
@@ -26,6 +28,8 @@ class AppConfig:
         self.spotify_access_token = SPOTIFY_ACCESS_TOKEN
         self.spotify_authorization_code = SPOTIFY_AUTHORIZATION_CODE
         self.spotify_redirect_url = SPOTIFY_REDIRECT_URI
+        self.my_spotify_username = MY_SPOTIFY_USERNAME
+        self.my_spotify_password = MY_SPOTIFY_PASSWORD
 
     def get_spotify_client_id(self) -> str:
         return self.spotify_client_id
@@ -59,6 +63,15 @@ class AppConfig:
 
     def get_spotify_redirect_uri(self) -> str:
         return self.spotify_redirect_url
+
+    def get_spotify_redirect_uri(self) -> str:
+        return self.spotify_redirect_url
+
+    def get_my_spotify_username(self) -> str:
+        return self.my_spotify_username
+
+    def get_my_spotify_password(self) -> str:
+        return self.my_spotify_password
 
 
 app_config = AppConfig()
