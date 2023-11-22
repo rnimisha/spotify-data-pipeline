@@ -1,5 +1,5 @@
-from .connection import connect_to_database
-from .schema import (
+from scripts.database.connection import connect_to_database
+from scripts.database.schema import (
     get_dim_artist_create_query,
     get_dim_date_create_query,
     get_dim_song_create_query,
