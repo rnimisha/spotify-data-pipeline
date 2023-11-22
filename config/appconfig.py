@@ -1,9 +1,11 @@
-from .settings import (
+from config.settings import (
     DB_HOST,
     DB_NAME,
     DB_PASSWORD,
     DB_PORT,
     DB_USER,
+    SPOTIFY_ACCESS_TOKEN,
+    SPOTIFY_AUTHORIZATION_CODE,
     SPOTIFY_CLIENT_ID,
     SPOTIFY_CLIENT_SECRET,
     SPOTIFY_CODE,
@@ -20,6 +22,8 @@ class AppConfig:
         self.db_password = DB_PASSWORD
         self.db_host = DB_HOST
         self.db_port = DB_PORT
+        self.spotify_access_token = SPOTIFY_ACCESS_TOKEN
+        self.spotify_authorization_code = SPOTIFY_AUTHORIZATION_CODE
 
     def get_spotify_client_id(self) -> str:
         return self.spotify_client_id
@@ -44,6 +48,12 @@ class AppConfig:
 
     def get_db_port(self) -> int:
         return self.db_port
+
+    def get_spotify_access_token(self) -> str:
+        return self.spotify_access_token
+
+    def get_spotify_authorization_code(self) -> str:
+        return self.spotify_authorization_code
 
 
 app_config = AppConfig()
