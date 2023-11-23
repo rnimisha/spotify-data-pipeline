@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 
 from airflow.exceptions import AirflowException
@@ -110,7 +112,11 @@ def save_df_to_processed_csv(data_frame):
     """
     csv_filename = "processed_played_tracks.csv"
     csv_path = f"/opt/data/processed/{csv_filename}"
+
+    logging.info("Saving processed data.........")
     save_df_as_csv(data_frame, csv_path)
+
+    logging.info("Processed data saved successfully.......")
 
 
 def transform(filename: str) -> pd.DataFrame:
@@ -127,9 +133,10 @@ def transform(filename: str) -> pd.DataFrame:
     """
     try:
         # read data from staging layer
-        csv_path = f"/opt/data/staging/staging_played_tracks.csv"
+        csv_path = f"/opt/data/staging/{filename}"
         df = pd.read_csv(csv_path)
 
+        logging.info("Transforming staging data.......")
         # apply transformations
         df = check_empty_data(df)
         df = check_missing_value(df)
@@ -137,15 +144,16 @@ def transform(filename: str) -> pd.DataFrame:
         df = transform_artist(df)
         df = transform_song(df)
 
-        # save processed data
-        save_df_to_processed_csv(df)
+        logging.info("Data transformed successfully....")
 
         return df
 
     except FileNotFoundError:
+        logging.error("Staging file not found to transform")
         raise AirflowException("Staging file not found to transform")
 
     except Exception as e:
+        logging.error("Unexpected error encountered while transforming data: ", e)
         raise AirflowException(
             "Unexpected error encountered while transforming data: ", e
         )

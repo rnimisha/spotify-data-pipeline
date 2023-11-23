@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 import pandas as pd
 
@@ -35,6 +36,7 @@ def extract_spotify_recently_played() -> pd.DataFrame:
         yesterday = today - datetime.timedelta(days=1)
         yesterday_unix_timestamp_ms = int(yesterday.timestamp()) * 1000
 
+        logging.info("Extracting spotify recently played data........")
         # extract yestarday data only
         recently_played = spotify_client.current_user_recently_played(
             limit=50, after=yesterday_unix_timestamp_ms
@@ -54,9 +56,11 @@ def extract_spotify_recently_played() -> pd.DataFrame:
         ]
         played_track_df = pd.DataFrame(played_track_data, columns=df_columns)
 
+        logging.info("Data extraction ended successfully........")
         return played_track_df
 
     except Exception as e:
+        logging.error("Error during extraction of data from spoify", e)
         raise AirflowException("Error during extraction of data from spoify", e)
 
 
@@ -66,14 +70,8 @@ def save_to_staging_csv(df: pd.DataFrame):
     """
     csv_filename = "staging_played_tracks.csv"
     csv_path = f"/opt/data/staging/{csv_filename}"
+
+    logging.info("Saving extracted data to csv.....")
     save_df_as_csv(df, csv_path)
 
-
-def extract():
-    try:
-        print("................ Extracting................")
-        df = extract_spotify_recently_played()
-        save_to_staging_csv(df)
-        print("................ Extracted................")
-    except Exception as e:
-        raise AirflowException("Extract error: ", e)
+    logging.info("Extracted data saved in csv.......")

@@ -1,6 +1,9 @@
+import logging
 import os
 
 import pandas as pd
+
+from airflow.exceptions import AirflowException
 
 
 def save_df_as_csv(data_frame: pd.DataFrame, csv_path: str):
@@ -14,4 +17,5 @@ def save_df_as_csv(data_frame: pd.DataFrame, csv_path: str):
         data_frame.to_csv(csv_path, index=False)
 
     except Exception as e:
-        print(f"Error saving data to path {csv_path}")
+        logging.error(f"Error saving data to path {csv_path}")
+        raise AirflowException(f"Error saving data to path {csv_path}")
