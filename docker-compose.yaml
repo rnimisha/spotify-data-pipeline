@@ -41,7 +41,6 @@ services:
       - ./scripts:/opt/scripts
       - ./data:/opt/data
       - ./config:/opt/config
-      - ./.spotify_cache:/opt/.spotify_cache
 
   airflow-webserver:
     build:
@@ -62,7 +61,6 @@ services:
       - ./scripts:/opt/scripts
       - ./data:/opt/data
       - ./config:/opt/config
-      - ./.spotify_cache:/opt/.spotify_cache
 
   airflow-init:
     build:
@@ -91,7 +89,6 @@ services:
       - ./scripts:/opt/scripts
       - ./data:/opt/data
       - ./config:/opt/config
-      - ./.spotify_cache:/opt/.spotify_cache
     restart: "no"
 
   selenium:
