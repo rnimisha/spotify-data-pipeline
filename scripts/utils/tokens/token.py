@@ -5,6 +5,7 @@ import requests
 
 from airflow.exceptions import AirflowException
 from config.appconfig import app_config
+from scripts.utils.tokens.save_access_token import save_access_token
 
 
 def token_from_authorization_code(authorization_code: str):
@@ -37,9 +38,15 @@ def token_from_authorization_code(authorization_code: str):
 
 def get_access_token():
     """generates token if authorization code is present"""
+
+    existing_token = app_config.get_spotify_access_token()
+    if existing_token:
+        return existing_token
+
     code = app_config.get_spotify_authorization_code()
     if code:
         access_token = token_from_authorization_code(authorization_code=code)
+        save_access_token(access_token)
         return access_token
     else:
         logging.error("Authorization code is required")
