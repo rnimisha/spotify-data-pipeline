@@ -11,16 +11,14 @@ COPY scripts/ /opt/scripts/
 COPY data/ /opt/data/
 COPY config/ /opt/config/
 COPY .env /opt/.env
-COPY .spotify_cache /opt/.spotify_cache
-COPY .spotify_cache /opt/scripts/utils/.spotify_cache
 COPY requirements.txt /opt/requirements.txt  
 
 # Change ownership of .spotify_cache to airflow user
 USER root
-RUN chown -R airflow:root /opt/.spotify_cache
+RUN chown -R airflow:root /opt/.env
 
 # Grant read and write permissions to the airflow group
-RUN chmod -R 775 /opt/.spotify_cache
+RUN chmod -R 775 /opt/.env
 
 # Switch back to the airflow user for further operations
 USER airflow
