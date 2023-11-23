@@ -27,7 +27,7 @@ services:
   airflow-scheduler:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.airflow
     command: scheduler
     environment:
       AIRFLOW_EXECUTOR: LocalExecutor
@@ -46,7 +46,7 @@ services:
   airflow-webserver:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.airflow
     command: webserver
     environment:
       AIRFLOW_EXECUTOR: LocalExecutor
@@ -67,7 +67,7 @@ services:
   airflow-init:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.airflow
     entrypoint: /bin/bash
     command:
       - -c
@@ -93,6 +93,13 @@ services:
       - ./config:/opt/config
       - ./.spotify_cache:/opt/.spotify_cache
     restart: "no"
+
+  selenium:
+    container_name: remote_chromedriver
+    image: seleniarm/standalone-chromium:latest
+    ports:
+      - 4444:4444
+    restart: always
 
 volumes:
   spotify_data:
