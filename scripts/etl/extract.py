@@ -1,11 +1,10 @@
 import datetime
-import os
 
 import pandas as pd
 
 from airflow.exceptions import AirflowException
-from scripts.utils.generate_spotify_client import generate_spotify_client
 from scripts.utils.save_df_csv import save_df_as_csv
+from scripts.utils.tokens.generate_spotify_client import generate_spotify_client
 
 
 def extract_single_track_data(track_item):
