@@ -1,9 +1,8 @@
-import logging
-import time
-
-import pandas as pd
-
+from airflow.exceptions import AirflowException
 from config.appconfig import app_config
+from scripts.utils.automation.login_handler import handle_login
+from scripts.utils.automation.recaptcha_handler import handle_recaptcha
+from scripts.utils.automation.web_driver import get_webdriver
 
 
 def authorize_user() -> str:
@@ -12,13 +11,28 @@ def authorize_user() -> str:
     Returns:
         str: spotify authorization code
     """
-    SPOTIFY_CLIENT_ID = app_config.get_spotify_client_id()
+    try:
+        SPOTIFY_CLIENT_ID = app_config.get_spotify_client_id()
+        SPOTIFY_REDIRECT_URI = app_config.get_spotify_redirect_uri()
+        scope = "user-read-recently-played"
 
-    spotify_redirect_uri = "https://www.google.com"
-    scope = "user-read-recently-played"
+        driver = get_webdriver()
+        auth_url = f"https://accounts.spotify.com/authorize?client_id={SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={SPOTIFY_REDIRECT_URI}&scope={scope}"
 
-    auth_url = f"https://accounts.spotify.com/authorize?client_id={SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri={spotify_redirect_uri}&scope={scope}"
-    print(f"Please visit this URL to authorize the application: {auth_url}")
-    authorization_code = input("Enter the authorization code from the callback URL: ")
+        handle_login(driver, auth_url)
 
-    return authorization_code
+        if "recaptcha" in driver.current_url:
+            handle_recaptcha(driver)
+
+        current_url = driver.current_url
+        authorization_code = current_url.split("code=")[1]
+
+        # Close the browser
+        driver.quit()
+
+        print("..... authorization code ........", authorization_code)
+
+        return authorization_code
+
+    except Exception as e:
+        raise AirflowException(f"Error in authentication process: ", e)
