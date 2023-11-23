@@ -3,6 +3,7 @@ import logging
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from airflow.decorators import task
 from airflow.exceptions import AirflowException
 from config.appconfig import app_config
 from scripts.utils.automation.login_handler import handle_login
@@ -10,6 +11,7 @@ from scripts.utils.automation.recaptcha_handler import handle_recaptcha
 from scripts.utils.automation.web_driver import get_webdriver
 
 
+@task
 def authorize_user() -> str:
     """_summary_
     Verifies user to generate authorization code
@@ -42,6 +44,11 @@ def authorize_user() -> str:
         # Close the browser
         driver.quit()
         logging.info("Authorizing code extracted......")
+
+        with open("/opt/.env", "a") as env_file:
+            env_file.write(f"SPOTIFY_AUTHORIZATION_CODE={authorization_code}\n")
+
+        print(f"Your authorization code: {authorization_code}")
 
         return authorization_code
 
