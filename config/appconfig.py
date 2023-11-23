@@ -64,9 +64,6 @@ class AppConfig:
     def get_spotify_redirect_uri(self) -> str:
         return self.spotify_redirect_url
 
-    def get_spotify_redirect_uri(self) -> str:
-        return self.spotify_redirect_url
-
     def get_my_spotify_username(self) -> str:
         return self.my_spotify_username
 
