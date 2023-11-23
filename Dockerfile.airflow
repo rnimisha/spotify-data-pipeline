@@ -4,7 +4,7 @@ FROM apache/airflow:2.7.3
 WORKDIR /opt/airflow
 
 # Set the PYTHONPATH to include the required directories
-ENV PYTHONPATH "/opt/scripts:/opt/data:/opt/config"
+ENV PYTHONPATH "/opt/scripts:/opt/data:/opt/config:/opt/main"
 
 # Copy your scripts, data, and requirements.txt into the container
 COPY scripts/ /opt/scripts/
@@ -12,6 +12,7 @@ COPY data/ /opt/data/
 COPY config/ /opt/config/
 COPY .env /opt/.env
 COPY requirements.txt /opt/requirements.txt  
+COPY main.py /opt/main.py 
 
 # Change ownership of .spotify_cache to airflow user
 USER root
