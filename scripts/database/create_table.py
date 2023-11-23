@@ -1,5 +1,6 @@
 import logging
 
+from airflow.decorators import task
 from airflow.exceptions import AirflowException
 from scripts.database.connection import connect_to_database
 from scripts.database.schema import (
@@ -10,6 +11,7 @@ from scripts.database.schema import (
 )
 
 
+@task
 def create_star_schema_table():
     conn = None
     cursor = None

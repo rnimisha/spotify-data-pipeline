@@ -3,6 +3,7 @@ import logging
 
 import pandas as pd
 
+from airflow.decorators import task
 from airflow.exceptions import AirflowException
 from scripts.utils.save_df_csv import save_df_as_csv
 from scripts.utils.tokens.generate_spotify_client import generate_spotify_client
@@ -24,6 +25,7 @@ def extract_single_track_data(track_item):
     return track_data_dict
 
 
+@task
 def extract_spotify_recently_played() -> pd.DataFrame:
     """
     Fetch recently played songs from spotify playlist.
@@ -64,6 +66,7 @@ def extract_spotify_recently_played() -> pd.DataFrame:
         raise AirflowException("Error during extraction of data from spoify", e)
 
 
+@task
 def save_to_staging_csv(df: pd.DataFrame):
     """
     Store extracted data to staging layer as csv file.

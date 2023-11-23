@@ -2,6 +2,7 @@ import logging
 
 import pandas as pd
 
+from airflow.decorators import task
 from airflow.exceptions import AirflowException
 from scripts.utils.save_df_csv import save_df_as_csv
 
@@ -106,6 +107,7 @@ def transform_song(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+@task
 def save_df_to_processed_csv(data_frame):
     """
     Store extracted data to staging layer as csv file.
@@ -119,6 +121,7 @@ def save_df_to_processed_csv(data_frame):
     logging.info("Processed data saved successfully.......")
 
 
+@task
 def transform(filename: str) -> pd.DataFrame:
     """
     Reads data from staging layer.

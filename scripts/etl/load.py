@@ -6,6 +6,7 @@ sys.path.append("/opt/scripts")
 import pandas as pd
 from psycopg2.extensions import connection
 
+from airflow.decorators import task
 from airflow.exceptions import AirflowException
 from scripts.database.connection import connect_to_database
 from scripts.utils.insert_query import (
@@ -45,6 +46,7 @@ def load_to_star_schema(df: pd.DataFrame, conn: connection):
         raise AirflowException("Star schema load error: ", e)
 
 
+@task
 def load():
     try:
         df = load_processed_data("processed_played_tracks.csv")
