@@ -39,7 +39,7 @@ Star schema model to increase efficiency for Analysis.
 
 Here is a visual representation of the Airflow DAG Tasks:
 
-![Airflow DAG Tasks](https://raw.githubusercontent.com/rnimisha/spotify-data-pipeline/main/assets/runningtask,gif)
+![Airflow DAG Tasks](https://raw.githubusercontent.com/rnimisha/spotify-data-pipeline/main/assets/runningtask.gif)
 
 ## Environment Variables
 
