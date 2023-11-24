@@ -1,4 +1,5 @@
 import logging
+import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -29,6 +30,19 @@ def handle_login(driver, auth_url):
 
         login_button.click()
         logging.info("Logged in to spotify successfully")
+        time.sleep(5)
+
+        if "authorize" in driver.current_url:
+            logging.info("Agreeing with spotify........")
+            wait = WebDriverWait(driver, 10)
+            agree_button = wait.until(
+                EC.element_to_be_clickable(
+                    (By.CSS_SELECTOR, 'button[data-testid="auth-accept"]')
+                )
+            )
+            agree_button.click()
+
+        time.sleep(10)
 
     except Exception as e:
         logging.error(f"Error logging into spotify: {e}")

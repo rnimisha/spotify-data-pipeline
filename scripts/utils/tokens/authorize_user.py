@@ -1,4 +1,5 @@
 import logging
+import time
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -33,12 +34,12 @@ def authorize_user() -> str:
             logging.info("Solving recaptcha........")
             handle_recaptcha(driver)
 
-        current_url = driver.current_url
+        if "recaptcha" in driver.current_url:
+            current_url = driver.current_url
+            WebDriverWait(driver, 10).until(EC.url_changes(current_url))
 
-        # Wait for redirection to occur
-        WebDriverWait(driver, 10).until(EC.url_changes(current_url))
-
         current_url = driver.current_url
+        print(current_url)
         authorization_code = current_url.split("code=")[1]
 
         # Close the browser
