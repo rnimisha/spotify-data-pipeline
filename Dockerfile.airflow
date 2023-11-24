@@ -12,7 +12,6 @@ COPY data/ /opt/data/
 COPY config/ /opt/config/
 COPY .env /opt/.env
 COPY requirements.txt /opt/requirements.txt  
-COPY main.py /opt/main.py 
 
 # Change ownership of .spotify_cache to airflow user
 USER root
