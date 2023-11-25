@@ -19,7 +19,7 @@ default_args = {
 
 
 @dag(
-    schedule_interval="@daily",
+    schedule_interval="0 0 * * *",
     start_date=datetime(2023, 11, 20),
     catchup=False,
     tags=["spotify_etl"],
