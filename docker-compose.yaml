@@ -11,6 +11,23 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - spotify_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}",
+        ]
+      interval: 5s
+      retries: 10
+
+  postgres-init:
+    image: postgres:16
+    command: >
+      bash -c "sleep 5 && PGPASSWORD=watermelon psql -h postgresdb -U nayeon -d spotify-star-schema -f /docker-entrypoint-initdb.d/create_db.sql"
+    volumes:
+      - ./sql/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
+    depends_on:
+      - postgresdb
 
   pg-admin:
     image: dpage/pgadmin4:6
@@ -36,6 +53,7 @@ services:
     depends_on:
       - postgresdb
       - airflow-init
+      - postgres-init
     volumes:
       - ./airflow:/opt/airflow
       - ./scripts:/opt/scripts
@@ -56,6 +74,7 @@ services:
     depends_on:
       - postgresdb
       - airflow-init
+      - postgres-init
     volumes:
       - ./airflow:/opt/airflow
       - ./scripts:/opt/scripts
@@ -90,6 +109,8 @@ services:
       - ./data:/opt/data
       - ./config:/opt/config
     restart: "no"
+    depends_on:
+      - postgres-init
 
   selenium:
     container_name: remote_chromedriver
@@ -98,5 +119,24 @@ services:
       - 4444:4444
     restart: always
 
+  metabase:
+    image: metabase/metabase:latest
+    restart: always
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${MB_DB_DBNAME}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${POSTGRES_USER}
+      MB_DB_PASS: ${POSTGRES_PASSWORD}
+      MB_DB_HOST: postgresdb
+    ports:
+      - "3008:3000"
+    depends_on:
+      - postgresdb
+      - postgres-init
+    volumes:
+      - metabase_data:/metabase-data
+
 volumes:
   spotify_data:
+  metabase_data:
