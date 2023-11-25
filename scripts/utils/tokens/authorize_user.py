@@ -34,17 +34,27 @@ def authorize_user() -> str:
             logging.info("Solving recaptcha........")
             handle_recaptcha(driver)
 
-        if "recaptcha" in driver.current_url:
-            current_url = driver.current_url
-            WebDriverWait(driver, 10).until(EC.url_changes(current_url))
-
+        print("........................", driver.current_url)
         current_url = driver.current_url
-        print(current_url)
-        authorization_code = current_url.split("code=")[1]
+
+        authorization_code = None
+
+        while not authorization_code:
+            current_url = driver.current_url
+
+            if "code=" in current_url:
+                authorization_code = current_url.split("code=")[1]
+                print(f"Authorization code found: {authorization_code}")
+            else:
+                print("sleeping")
+                time.sleep(2)
+                continue
 
         # Close the browser
         driver.quit()
         logging.info("Authorizing code extracted......")
+
+        print(authorization_code)
 
         with open("/opt/.env", "a") as env_file:
             env_file.write(f"SPOTIFY_AUTHORIZATION_CODE={authorization_code}\n")
