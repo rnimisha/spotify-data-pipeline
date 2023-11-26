@@ -1,0 +1,14 @@
+name: "Build and run containers "
+on:
+  push:
+    branches: ["main"]
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start docker compose
+        run: docker compose up -d --build
