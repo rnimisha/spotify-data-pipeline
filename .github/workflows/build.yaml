@@ -10,5 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate .env file
+        run: |
+          echo "Running scripts to create env variables..."
+          chmod +x generate_env.sh
+          ./generate_env.sh
+
       - name: Start docker compose
         run: docker compose up -d --build
