@@ -30,7 +30,7 @@ Apache Airflow-driven Spotify Data Pipeline that drives data extraction and tr
 
 Orchestrated through Apache Airflow, the data pipeline ensures consistent handling of Spotify data by executing tasks, such as extraction and transformation, at interval of every midnight.
 
-![Architecture Diagram](https://raw.githubusercontent.com/rnimisha/spotify-data-pipeline/main/assets/architecturediagram.jpeg)
+![Architecture Diagram](https://raw.githubusercontent.com/rnimisha/spotify-data-pipeline/main/assets/architecturaldiagram.jpeg)
 
 ## OLAP Data Modeling
 
